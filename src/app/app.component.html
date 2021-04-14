@@ -1,0 +1,31 @@
+<h1 class="textCenter">{{title}}</h1>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+  <a href="/home" routerLink="home" (click)="closeNav()">HOME</a>
+  <a *ngIf="!isLoggedIn" href="/login" routerLink="login" (click)="closeNav()">Login</a>
+  <a href="/chart" *ngIf="ischart"  routerLink="chart" (click)="closeNav()">Chart </a>
+  <a href="/table" *ngIf="ischart" routerLink="table" (click)="closeNav()">table</a>
+  <a  *ngIf="showAdminBoard" href="/admin" routerLink="admin" (click)="closeNav()">Admin Panel </a>
+  <a *ngIf="ispython" href="/app" routerLink="app" (click)="closeNav()">Data Management </a>
+  <a *ngIf="isLoggedIn" (click)="logout();closeNav();">LogOut</a>
+</div>
+
+<nav class="navbar navbar-dark bg-dark">
+  <a href="javascript:void(0)" class="nav-link nav-item" style="font-size: xxx-large;" (click)="openNav()">&#x2261;</a>
+  <a href="javascript:void(0)" class="nav-link nav-item" style="font-size: x-large;" *ngIf="isLoggedIn">logged in as {{this.username | lowercase}}</a>
+</nav>
+
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+
+<footer id="sticky-footer"  class="bg-dark text-center text-white mt-auto">
+  <a href="{{privacypolicy}}" target="_blank">Privacy policy</a> -
+  <a href="{{imprint}}" target="_blank">Imprint</a> <br>
+  2021, <a href="https://github.com/lukaskraemer" target="_blank">Github</a> -
+  <a href="https://lukas-kraemer.de">Homepage</a>
+</footer>
+
+
+

@@ -1,0 +1,56 @@
+<div class="row btn-margin">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2">
+      <button  class="btn btn-dark btn-dark-lk" (click)="getCurrentDataState()">get Number of Trips</button>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2">
+      <button class="btn btn-dark btn-dark-lk" (click)="isShowFiles = true;">Show Filenames on the Server</button>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2">
+      <button class="btn btn-dark btn-dark-lk" (click)="startPython()">Start Summary Calculator</button>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mobinp">
+
+      <form  novalidate (ngSubmit)="uploadTxtFile()">
+        <input [formControl]="file"  (change)="fileChange($event)" type="file" placeholder="File" class="form-control"  id="customFile" />
+        <button  class="btn-dark form-control" type="submit">Upload txt file</button>
+      </form>
+    </div>
+</div>
+
+
+<ng-template [ngIf]="isShowPython">
+  <ng-template [ngIf]="ring">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </ng-template>
+
+<span [innerHTML]="pythonRes"></span> <br>
+</ng-template>
+
+<ng-template [ngIf]="isShowNumbers">
+  <h4>Storage Information</h4>
+  Number of Trips on local storage: {{filesStorage}}<br>Number of Trips in Database: {{datenbankLast}}<br>
+</ng-template>
+
+<ng-template [ngIf]="isShowFiles">
+  <div class="panel-body">
+    <h4> File List</h4>
+
+    <div class="switch-toggle switch-3 switch-candy">
+      <input id="on" name="state-d" type="radio"  />
+      <label for="on"(click)="showFiles();">All Files</label>
+
+      <input id="na" name="state-d" type="radio" />
+      <label for="na" class="disabled" (click)="loadMissing();">Only Missing</label>
+
+        <input id="off" name="state-d" type="radio" checked="checked"/>
+        <label for="off" (click)="data = null;">hide all</label>
+    </div>
+
+    <div class="list-group">
+      <ol>
+        <li #ce (click)="loadValue(ce)" class="list-group-item" *ngFor="let item of data">{{item}}</li>
+      </ol>
+    </div>
+  </div>
+</ng-template>
+

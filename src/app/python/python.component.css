@@ -1,0 +1,88 @@
+.list-group{
+  min-height: 50px;
+  height: 30%;
+  max-height: 300px;
+  margin-bottom: 10px;
+  overflow-x: auto;
+  overflow-y: scroll;
+  width: 100%;
+  padding-top: 2em;
+  -webkit-overflow-scrolling: touch;
+}
+.btn-margin{
+  margin: 20px;
+  padding-right:10px;
+}
+.btn-dark-lk{
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .input-group{
+    height: 100%;
+  }
+  .mobinp{
+    margin-top: 30px;
+  }
+  .btn-dark-lk{
+    height: auto;
+    margin-top: 25px;
+  }
+}
+.list-group{
+  margin-bottom: 10%;
+}
+
+.switch-toggle {
+  float: left;
+  background: #242729;
+}
+.switch-toggle input {
+  position: absolute;
+  opacity: 0;
+}
+.switch-toggle input + label {
+  padding: 7px;
+  float:left;
+  color: #fff;
+  cursor: pointer;
+}
+.switch-toggle input:checked + label {
+  background: green;
+}
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  margin: 4px;
+  border: 6px solid #343A40;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #343A40 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
