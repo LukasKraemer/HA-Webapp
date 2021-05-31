@@ -1,121 +1,89 @@
+<H2>Summary</H2>
 <form
   name="form"
-  (ngSubmit)="f.form.valid && onSubmit()"
-  #f="ngForm"
+  (ngSubmit)="onSubmit()"
+  [formGroup]="form"
   novalidate
 >
-  <div class="form-group">
-    <label for="begin">Begin: </label>
-    <input
-      type="date"
-      class="form-control"
-      name="begin"
-      minlength="3"
-      [(ngModel)]="form.begin"
-      required
-      id="begin"
-      #begin="ngModel"
-    />
-  </div>
-  <div class="form-group">
-    <label for="end">End: </label>
-    <input
-      type="date"
-      class="form-control"
-      name="begin"
-      minlength="3"
-      [(ngModel)]="form.end"
-      required
-      id="end"
-      #end="ngModel"
-    />
-  </div>
 
   <div class="form-group">
-    <label for="typec">Type </label>
+    <label for="typeSummary">Type of Summary</label>
     <select
-      [(ngModel)]="form.type"
-      required
-      #typec="ngModel"
-      name="typec"
+      formControlName="typeSummary"
+      name="typeSummary"
       class="form-control"
-      id="typec"
+      id="typeSummary"
+      (change)="columnLoad()"
     >
       <option *ngFor="let item of fieldnames;" value="{{item}}">{{item}}</option>
     </select >
-
   </div>
 
-  <div class="form-group">
-    <label for="kindofgroup">Group Data: </label>
-    <select
-      [(ngModel)]="form.kindof"
-      required
-      #kindofgroup="ngModel"
-      name="kindofgroup"
-      class="form-control"
-      id="kindofgroup"
-    >
-      <option *ngFor="let kind of kindof;" value="{{kind}}">{{kind}}</option>
-    </select >
-
-  </div>
-
-
-
-  <div class="form-group">
+  <div *ngIf="columnsdata.length != 0" class="form-group">
     <label for="columns">Columns: </label>
     <select
-      [(ngModel)]="form.columns"
-      required
-      #columns="ngModel"
+      formControlName="columns"
       name="columns"
       class="form-control"
       id="columns"
-    >
+      [multiple]="fieldnames"
+    required="required">
       <option *ngFor="let column of columnsdata;" value="{{column}}">{{column}}</option>
     </select >
-
   </div>
-
+  <ng-template [ngIf]=" form.controls.typeSummary.value == 'trips' || form.controls.typeSummary.value == 'day'" >
+  <mat-form-field appearance="fill" class="example-form-field">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="rangePicker">
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #rangePicker>
+      <mat-date-range-picker-actions>
+        <button mat-button matDateRangePickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+      </mat-date-range-picker-actions>
+    </mat-date-range-picker>
+  </mat-form-field>
+  </ng-template>
+  <ng-template [ngIf]=" form.controls.typeSummary.value == 'trips'" >
   <div class="form-group">
-    <label for="minlen">min length </label>
-    <input
-      type="number"
-      step="0.01"
-      name="minlen"
-      id="minlen"
-      class="form-control"
-      [(ngModel)]="form.minlen"
-      #minlen="ngModel"
-    >
+    <p>Trip Length in km</p>
+    <ngx-slider [(value)]="slider.triplen.value" [(highValue)]="slider.triplen.highValue" [options]="slider.triplen.options"></ngx-slider>
   </div>
-
   <div class="form-group">
-    <label for="maxlen">max length </label>
-    <input
-      type="number"
-      step="0.01"
-      name="maxlen"
-      id="maxlen"
-      class="form-control"
-      [(ngModel)]="form.maxlen"
-      #maxlen="ngModel"
-    >
+    <p>Fuel Consumption</p>
+    <ngx-slider [(value)]="slider.consumption.value" [(highValue)]="slider.consumption.highValue" [options]="slider.consumption.options"></ngx-slider>
   </div>
-
-
   <div class="form-group">
-    <button class="btn btn-primary btn-block">
-      Update Data
-    </button>
+    <p>Outside Temp</p>
+    <ngx-slider [(value)]="slider.outsideTemp.value" [(highValue)]="slider.outsideTemp.highValue" [options]="slider.outsideTemp.options"></ngx-slider>
   </div>
+  <div class="form-group">
+    <p>Driving time in min</p>
+    <ngx-slider [(value)]="slider.drivingTime.value" [(highValue)]="slider.drivingTime.highValue" [options]="slider.drivingTime.options"></ngx-slider>
+  </div>
+  </ng-template>
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <button type="button" (click)="loadData()" class="btn btn-dark btn btn-primary btn-block">
+        Update Chart
+      </button>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <button type="button" class="btn btn-dark btn btn-primary btn-block" (click)="downlaodDatawithQuery()">
+        Generate CSV
+      </button>
+    </div>
+
+    </div>
 
 </form>
 
-
+<ng-template [ngIf]="summaryData.length != 0 && lineChartLabels.length != 0">
 <div style="display: block;">
-  <canvas baseChart width="80%" height="80%"
+  <canvas baseChart style="width: 100%; min-height: 50%; height: auto" width="100%"
           [datasets]="lineChartData"
           [labels]="lineChartLabels"
           [options]="lineChartOptions"
@@ -125,3 +93,4 @@
           [plugins]="lineChartPlugins">
   </canvas>
 </div>
+</ng-template>

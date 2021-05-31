@@ -5,7 +5,6 @@
   <a href="/home" routerLink="home" (click)="closeNav()">HOME</a>
   <a *ngIf="!isLoggedIn" href="/login" routerLink="login" (click)="closeNav()">Login</a>
   <a href="/chart" *ngIf="ischart"  routerLink="chart" (click)="closeNav()">Chart </a>
-  <a href="/table" *ngIf="ischart" routerLink="table" (click)="closeNav()">table</a>
   <a  *ngIf="showAdminBoard" href="/admin" routerLink="admin" (click)="closeNav()">Admin Panel </a>
   <a *ngIf="ispython" href="/app" routerLink="app" (click)="closeNav()">Data Management </a>
   <a *ngIf="isLoggedIn" (click)="logout();closeNav();">LogOut</a>

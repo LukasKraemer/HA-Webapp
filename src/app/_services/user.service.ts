@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {GlobalConstants} from '../common/global-constants';
 import {TokenStorageService} from './token-storage.service';
@@ -53,4 +53,24 @@ export class UserService {
       });
     return this.http.get(API_URL + 'app/getTxt/' + filename, {headers, responseType: 'blob' as 'json'});
   }
+
+  /*
+   summary
+  */
+  loadSummary(type: string, params: HttpParams): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.tokenStorageService.getToken()
+    });
+    return this.http.get(API_URL + 'summary/' + type + '/data/' , {headers, params});
+  }
+  loadColumns(type: string): Observable<any> {
+    return this.http.get(API_URL + 'summary/' + type + '/columns/?output=json' , this.httpOptions);
+  }
+  getTxtfromSummary(typ: string, params: HttpParams): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.tokenStorageService.getToken()
+    });
+    return this.http.get(API_URL + 'summary/' + typ + '/data/' , {headers, responseType: 'blob' as 'json', params});
+  }
+
 }

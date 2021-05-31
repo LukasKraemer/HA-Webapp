@@ -3,6 +3,7 @@ import {UserService} from '../_services/user.service';
 import {Observable} from 'rxjs';
 import {AuthService} from '../_services/auth.service';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
+import {Common} from '../common/Common';
 
 @Component({
   selector: 'app-python',
@@ -76,24 +77,13 @@ export class PythonComponent implements OnInit {
     formData.append('txtFile', file, file.name);
     this.fileData = formData;
   }
-  downloadFile(response: any, fileName): void{
-    const dataType = response.type;
-    const binaryData = [];
-    binaryData.push(response);
-    const downloadLink = document.createElement('a');
-    downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-    if (fileName) {
-      downloadLink.setAttribute('download', fileName);
-    }
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-  }
+
 
   loadMissing(): void{
     this.data = [];
     const regex = /[\/:.]/gm;
     this.service.getMissing().subscribe((data) => {
-        for (let i = 0; i < data.missing.length - 1; i++) {
+        for (let i = 0; i < data.missing.length; i++) {
           this.data.push('Trip_' +  data.missing[i].replace(/.[0-9]{3}$/gm, '').replace(regex, '-').replace(' ', '_') + '.txt');
         }
       });
@@ -103,7 +93,7 @@ export class PythonComponent implements OnInit {
       const fileName = name.innerHTML;
       this.service.getTxt(fileName).subscribe((response: any) => {
       const newName = fileName.replace('txt', 'csv');
-      this.downloadFile(response, newName);
+      Common.downloadFile(response, newName);
     });
   }
 }
