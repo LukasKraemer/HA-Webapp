@@ -16,7 +16,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router,private token: TokenStorageService) {
+  constructor(private http: HttpClient, private router: Router, private token: TokenStorageService) {
   }
   login(username: string, password: string): Observable<any> {
     const body = JSON.stringify({ username , password});
@@ -38,9 +38,6 @@ export class AuthService {
     }
     if (this.router.url === '/app' && permission !== 7 && permission !== 8 && permission !== 1)
     {
-      return 0;
-    }
-    else if (this.router.url === '/admin' && permission  >= 8){
       return 0;
     }else if (this.router.url === '/chart' || this.router.url === '/table' && permission >= 6 && permission !== 9) {
       return 0;

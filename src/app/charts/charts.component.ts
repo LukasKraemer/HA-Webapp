@@ -58,7 +58,7 @@ export class ChartsComponent implements OnInit {
 
   fieldnames: string[] = ['trips', 'day', 'month'];
   kindof: string[] = ['single Trips', 'group by day', 'group by week', 'group by month'];
-  columnsdata: string[] = [];
+  columnsdata: string[];
 
 
   constructor(private auth: AuthService, private service: UserService) {}
@@ -96,6 +96,7 @@ loadData(): void{
 onSubmit(): boolean{
     return false;
   }
+
 
 onChange(): void{
   this.lineChartLabels = this.buildLabel(this.summaryData);

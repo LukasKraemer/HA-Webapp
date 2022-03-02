@@ -89,9 +89,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "chosen.jquery.min.js "
+            ]
           }
         },
         "lint": {

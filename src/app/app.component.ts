@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
   isLoggedIn = false;
   ispython = false;
   ischart = false;
-  showAdminBoard = false;
   username?: string;
   title = GlobalConstants.sitetitle;
   policy: boolean;
@@ -29,7 +28,6 @@ export class AppComponent implements OnInit {
       const user = this.tokenStorageService.getUser();
 
       this.role = user.permission;
-      this.showAdminBoard = this.role === 10;
       this.ispython = this.role >= 1 && this.role !== 7 && this.role !== 8;
       this.ischart = this.role >= 6 && this.role !== 9;
       this.username = user.username;

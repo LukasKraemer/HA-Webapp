@@ -5,18 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {MatSelectModule} from '@angular/material/select'
 import { AppComponent } from './app.component';
 import { ChartsComponent } from './charts/charts.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { HomeComponent } from './home/home.component';
-import { AdminComponent } from './admin/admin.component';
 import { ChartsModule } from 'ng2-charts';
 import { PythonComponent } from './python/python.component';
 import { PermissionErrorComponent } from './permission-error/permission-error.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatButtonModule} from '@angular/material/button';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
@@ -27,7 +25,6 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     ChartsComponent,
     LoginFormComponent,
     HomeComponent,
-    AdminComponent,
     PythonComponent,
     PermissionErrorComponent,
   ],
@@ -44,7 +41,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     MatNativeDateModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    NgxSliderModule
+    NgxSliderModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,30 +7,37 @@
 >
 
   <div class="form-group">
-    <label for="typeSummary">Type of Summary</label>
-    <select
-      formControlName="typeSummary"
-      name="typeSummary"
-      class="form-control"
-      id="typeSummary"
-      (change)="columnLoad()"
-    >
-      <option *ngFor="let item of fieldnames;" value="{{item}}">{{item}}</option>
-    </select >
+
+    <mat-form-field appearance="fill">
+      <mat-label>Type of Summary</mat-label>
+      <mat-select
+        formControlName="typeSummary"
+        required="required"
+        (selectionChange)="columnLoad()"
+      >
+        <mat-option *ngFor="let item of fieldnames" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
   </div>
 
-  <div *ngIf="columnsdata.length != 0" class="form-group">
-    <label for="columns">Columns: </label>
-    <select
-      formControlName="columns"
-      name="columns"
-      class="form-control"
-      id="columns"
-      [multiple]="fieldnames"
-    required="required">
-      <option *ngFor="let column of columnsdata;" value="{{column}}">{{column}}</option>
-    </select >
-  </div>
+  <ng-template [ngIf]="columnsdata && columnsdata.length != 0" >
+    <mat-form-field appearance="fill">
+      <mat-label>columnsdata</mat-label>
+      <mat-select formControlName="columns" multiple required="required">
+        <mat-select-trigger>
+          {{columnsdata ? columnsdata[0] : ''}}
+          <span *ngIf="columnsdata?.length > 1" class="example-additional-selection">
+        ({{form.controls.columns.value.length + 'selected'}})
+      </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let column of columnsdata" [value]="column">{{column}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-template>
+  <br>
   <ng-template [ngIf]=" form.controls.typeSummary.value == 'trips' || form.controls.typeSummary.value == 'day'" >
   <mat-form-field appearance="fill" class="example-form-field">
     <mat-label>Enter a date range</mat-label>
